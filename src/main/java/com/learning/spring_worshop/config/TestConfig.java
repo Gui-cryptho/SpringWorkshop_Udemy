@@ -2,7 +2,9 @@ package com.learning.spring_worshop.config;
 
 import com.learning.spring_worshop.entities.Order;
 import com.learning.spring_worshop.entities.User;
+import com.learning.spring_worshop.entities.Category;
 import com.learning.spring_worshop.entities.enums.OrderStatus;
+import com.learning.spring_worshop.repositories.CategoryRepositorie;
 import com.learning.spring_worshop.repositories.OrderRepositorie;
 import com.learning.spring_worshop.repositories.UserRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepositorie orderRepositorie;
 
+    @Autowired
+    private CategoryRepositorie categoryRepositorie;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepositorie.saveAll(Arrays.asList(cat1, cat2, cat3));
 
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
