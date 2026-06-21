@@ -1,11 +1,13 @@
 package com.learning.spring_worshop.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.learning.spring_worshop.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,20 +17,24 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
     private User client;
 
+    private Integer orderStatus;
+
     public Order(){
 
     }
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
         this.id = id;
-        this.moment = moment;
         this.client = client;
+        setOrderStatus(orderStatus);
+        this.moment = moment;
+
     }
 
     public Long getId() {
@@ -53,6 +59,14 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.vallueof(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus.getCode();
     }
 
     @Override

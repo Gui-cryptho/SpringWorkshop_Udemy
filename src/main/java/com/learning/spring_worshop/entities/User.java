@@ -24,6 +24,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     public User(){
 
     }
@@ -74,10 +78,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
     }
 
     @Override
