@@ -1,13 +1,16 @@
 package com.learning.spring_worshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learning.spring_worshop.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
 
     @EmbeddedId
@@ -26,19 +29,21 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-    public Order getIdOrder() {
+    @JsonIgnore
+    public Order getOrder() {
         return id.getOrder();
     }
 
-    public void setIdOrder(Order id) {
+    public void setOrder(Order id) {
         this.id.setOrder(id);
     }
 
-    public Product getIdProduct() {
+    @JsonIgnore
+    public Product getProduct() {
         return id.getProduct();
     }
 
-    public void setIdProduct(Product id) {
+    public void setProduct(Product id) {
         this.id.setProduct(id);
     }
 
