@@ -1,14 +1,8 @@
 package com.learning.spring_worshop.config;
 
-import com.learning.spring_worshop.entities.Order;
-import com.learning.spring_worshop.entities.Product;
-import com.learning.spring_worshop.entities.User;
-import com.learning.spring_worshop.entities.Category;
+import com.learning.spring_worshop.entities.*;
 import com.learning.spring_worshop.entities.enums.OrderStatus;
-import com.learning.spring_worshop.repositories.CategoryRepositorie;
-import com.learning.spring_worshop.repositories.OrderRepositorie;
-import com.learning.spring_worshop.repositories.ProductRepositorie;
-import com.learning.spring_worshop.repositories.UserRepositorie;
+import com.learning.spring_worshop.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //Configuration != Configurable
@@ -36,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepositorie productRepositorie;
+
+    @Autowired
+    private OrderItemRepositorie orderItemRepositorie;
 
     @Override
     public void run(String... args) throws Exception {
@@ -72,6 +69,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepositorie.saveAll(Arrays.asList(u1, u2));
         orderRepositorie.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepositorie.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
 
 
