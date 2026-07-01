@@ -1,5 +1,6 @@
 package com.learning.spring_worshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -25,15 +26,6 @@ public class Product implements Serializable {
 
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> orders = new HashSet<>();
-
-    public Set<Order> getOrders(){
-        Set<Order> set = new HashSet<>();
-        for(OrderItem x : orders){
-            set.add(x.getOrder());
-        }
-
-        return set;
-    }
 
     public Product(){
 
@@ -89,6 +81,16 @@ public class Product implements Serializable {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+        for(OrderItem x : orders){
+            set.add(x.getOrder());
+        }
+
+        return set;
     }
 
     @Override
